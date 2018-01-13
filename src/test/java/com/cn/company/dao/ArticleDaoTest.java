@@ -36,11 +36,11 @@ public class ArticleDaoTest {
     @Test
     public void test(){
         Assert.assertEquals(16,articleDao.findAll().size());
-        System.out.println(articleDao.findOne(5).toString());
-        System.out.println(articleDao.findByTitle("Lucene").toString());
+        logger.info(articleDao.findOne(5).toString());
+        logger.info(articleDao.findByTitle("哈哈").toString());
         logger.info("###");
         logger.error("****");
-        System.out.println(articleDao.findByContentLike("%Lucene%").toString());
+        logger.info(articleDao.findByContentLike("%操作%").toString());
     }
 
     @After
