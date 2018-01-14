@@ -32,4 +32,5 @@ public class Swagger2 {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder().title("例子").description("简单的例子对于lucene").version("1.0").build();
     }
+
 }
