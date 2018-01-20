@@ -33,12 +33,12 @@ public class BBSController {
 
     @ApiOperation(value="用于常规的查询",notes = "用于常规的查询")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "query",name="d",value="判断是哪张表 1 是post表 其它是thread表",required = true,dataType = "Integer"),
-            @ApiImplicitParam(paramType = "query",name="ps",value="ps指的是页面内容大小 默认是10",required =false,dataType = "Integer"),
-            @ApiImplicitParam(paramType = "query",name="pi",value="pi指的是第几页 默认是1",required =false ,dataType = "Integer"),
+            @ApiImplicitParam(paramType = "query",name="d",value="判断是哪张表 1 是post表 其它是thread表",required = true,dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name="ps",value="ps指的是页面内容大小 默认是10",required =false,dataType = "String"),
+            @ApiImplicitParam(paramType = "query",name="pi",value="pi指的是第几页 默认是1",required =false ,dataType = "String"),
             @ApiImplicitParam(paramType = "query",name="title",value="文章标题",required =false ,dataType = "String"),
             @ApiImplicitParam(paramType = "query",name="pagetext",value="文章内容",required =false ,dataType = "String"),
-            @ApiImplicitParam(paramType = "query",name="forumid",value="讨论会的id",required =false ,dataType = "Integer"),
+            @ApiImplicitParam(paramType = "query",name="forumid",value="讨论会的id",required =false ,dataType = "String"),
     })
     @RequestMapping(value ="/q",method=RequestMethod.GET)
     @ResponseBody
@@ -49,7 +49,7 @@ public class BBSController {
 
     @ApiOperation(value="对所有字段的模糊查询",notes = "对所有字段的模糊查询")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "query",name="d",value="判断是哪张表 1 是post表 其它是thread表",required = true,dataType = "Integer"),
+            @ApiImplicitParam(paramType = "query",name="d",value="判断是哪张表 1 是post表 其它是thread表",required = true,dataType = "String"),
     })
     @RequestMapping(value ="/getAllFieds",method=RequestMethod.GET)
     @ResponseBody

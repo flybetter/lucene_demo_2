@@ -16,7 +16,7 @@ public class LuceneServiceImpl implements LuceneService {
     @Override
     public String indexBuild() {
 
-        String result="";
+        String result;
 
         if(index_status==0){
             index_status=1;
