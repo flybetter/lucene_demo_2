@@ -2,6 +2,8 @@ package com.cn.company.domain;
 
 
 
+import org.springframework.data.elasticsearch.annotations.Document;
+
 import javax.persistence.*;
 
 /**
@@ -12,6 +14,7 @@ import javax.persistence.*;
  * @Time: 上午12:15
  */
 @Entity
+@Document(indexName = "thread",type = "type",shards = 1,replicas = 0,refreshInterval = "-1")
 @Table(name="thread")
 public class Thread {
 

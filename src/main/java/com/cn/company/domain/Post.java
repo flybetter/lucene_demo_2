@@ -1,6 +1,8 @@
 package com.cn.company.domain;
 
 
+import org.springframework.data.elasticsearch.annotations.Document;
+
 import javax.persistence.*;
 
 /**
@@ -10,6 +12,7 @@ import javax.persistence.*;
  * @Date: 2018/1/14
  * @Time: 上午12:15
  */
+@Document(indexName = "post",type = "post",shards = 1,replicas = 0,refreshInterval = "-1")
 @Entity
 @Table(name = "post")
 public class Post {
