@@ -1,5 +1,7 @@
 package com.cn.company.dao;
 
+import com.cn.company.dao.elasticsearch.PostElasticSearchDao;
+import com.cn.company.dao.jpa.PostDao;
 import com.cn.company.domain.Post;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,6 +29,10 @@ public class PostElasticSearchDaoTest {
     @Autowired
     private PostElasticSearchDao postElasticSearchDao;
 
+
+    @Autowired
+    private PostDao postDao;
+
     @Test
     public void testDao() throws Exception {
         Post post =new Post();
@@ -35,5 +41,10 @@ public class PostElasticSearchDaoTest {
         post.setThreadid(5);
         post.setUsername("big name style");
         postElasticSearchDao.save(post);
+    }
+
+    @Test
+    public void savePostList() throws Exception {
+
     }
 }

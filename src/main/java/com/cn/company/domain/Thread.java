@@ -13,13 +13,15 @@ import javax.persistence.*;
  * @Date: 2018/1/14
  * @Time: 上午12:15
  */
+@Document(indexName = "thread",type = "thread",shards = 1,replicas = 0,refreshInterval = "-1")
 @Entity
-@Document(indexName = "thread",type = "type",shards = 1,replicas = 0,refreshInterval = "-1")
 @Table(name="thread")
 public class Thread {
 
     @Id
-    @GeneratedValue
+    @org.springframework.data.annotation.Id
+    @SequenceGenerator(name = "PROJECT_ID_GENERATOR", sequenceName = "PROJECT_SEQ", initialValue = 100, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROJECT_ID_GENERATOR")
     private int threadid;
 
     @Column

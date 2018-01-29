@@ -1,5 +1,6 @@
 package com.cn.company.dao;
 
+import com.cn.company.dao.jpa.ThreadDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

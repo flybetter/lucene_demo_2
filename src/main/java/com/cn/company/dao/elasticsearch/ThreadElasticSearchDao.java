@@ -1,4 +1,4 @@
-package com.cn.company.dao;
+package com.cn.company.dao.elasticsearch;
 
 import com.cn.company.domain.Thread;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;

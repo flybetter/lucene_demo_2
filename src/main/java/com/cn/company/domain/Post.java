@@ -2,7 +2,6 @@ package com.cn.company.domain;
 
 
 import org.springframework.data.elasticsearch.annotations.Document;
-
 import javax.persistence.*;
 
 /**
@@ -16,7 +15,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "post")
 public class Post {
+
     @Id
+    @org.springframework.data.annotation.Id
     @GeneratedValue
     private int postid;
 
