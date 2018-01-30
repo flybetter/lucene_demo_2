@@ -1,6 +1,7 @@
 package com.cn.company.dao.elasticsearch;
 
 import com.cn.company.domain.Post;
+import org.springframework.data.domain.Page;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 /**

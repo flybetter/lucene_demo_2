@@ -1,10 +1,12 @@
 package com.cn.company.controller;
 
+import com.cn.company.service.ElasticSearchService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,10 +25,17 @@ public class BBSController {
     /** logger */
     private static final Logger logger = LoggerFactory.getLogger(BBSController.class);
 
+    @Autowired
+    private ElasticSearchService elasticSearchService;
+
     @ApiOperation(value="用于建立thread表和post表索引文件",notes = "用于建立thread表和post表索引文件")
     @RequestMapping(value = "/indexBuild",method = RequestMethod.GET)
     @ResponseBody
     public String indexBuild(){
+
+        elasticSearchService.cleanPostDataAndThreadDataBySearchServer();
+        elasticSearchService.sendPostDataToElasticSearchServer();
+        elasticSearchService.sendThreadDataToElasticSearchSever();
 
         return null;
     }

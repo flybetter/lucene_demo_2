@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * PostElasticSearchDaoTest class
  *
@@ -45,6 +48,27 @@ public class PostElasticSearchDaoTest {
 
     @Test
     public void savePostList() throws Exception {
+        Post post =new Post();
+        post.setPostid(1);
+        post.setPagetext("something is real different");
+        post.setThreadid(5);
+        post.setUsername("big name style");
+        Post post2 =new Post();
+        post.setPostid(2);
+        post.setPagetext("something2 is real different");
+        post.setThreadid(6);
+        post.setUsername("big name2 style");
+
+        List<Post> posts=new ArrayList<>();
+        posts.add(post);
+        posts.add(post2);
+        postElasticSearchDao.save(posts);
+    }
+
+    @Test
+    public void testCriticalElasticsearch() throws Exception {
+
+
 
     }
 }

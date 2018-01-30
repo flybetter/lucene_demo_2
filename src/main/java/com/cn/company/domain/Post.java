@@ -30,6 +30,12 @@ public class Post {
     @Column
     private int threadid;
 
+    @Column
+    private long dateline;
+
+    @Column
+    private int visible;
+
     public int getPostid() {
         return postid;
     }
@@ -62,6 +68,22 @@ public class Post {
         this.threadid = threadid;
     }
 
+    public long getDateline() {
+        return dateline;
+    }
+
+    public void setDateline(long dateline) {
+        this.dateline = dateline;
+    }
+
+    public int getVisible() {
+        return visible;
+    }
+
+    public void setVisible(int visible) {
+        this.visible = visible;
+    }
+
     @Override
     public String toString() {
         return "Post{" +
@@ -69,6 +91,8 @@ public class Post {
                 ", pagetext='" + pagetext + '\'' +
                 ", username='" + username + '\'' +
                 ", threadid=" + threadid +
+                ", dateline=" + dateline +
+                ", visible=" + visible +
                 '}';
     }
 }

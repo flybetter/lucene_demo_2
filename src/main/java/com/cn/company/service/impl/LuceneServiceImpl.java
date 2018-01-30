@@ -20,8 +20,6 @@ public class LuceneServiceImpl implements LuceneService {
 
         if(index_status==0){
             index_status=1;
-
-
             index_status=0;
             result="ok";
         }else{

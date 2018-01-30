@@ -1,6 +1,8 @@
 package com.cn.company.dao.jpa;
 
 import com.cn.company.domain.Post;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -14,6 +16,20 @@ import java.util.List;
  * @Time: 上午11:13
  */
 public interface PostDao extends JpaRepository<Post, Integer> {
+
+
+    /**
+     * use the dateline and pageable to select data, the jpa default paging function
+     * @param dateline
+     * @param pageable
+     * @return
+     */
+     Page<Post> findByDatelineGreaterThanAndVisibleIs(Long dateline,Integer visible, Pageable pageable);
+
+
+
+
+    /************************************old business logic************************************************/
 
     /**
      * get up to 5000 data through greater than or equal postid and greater than dateline
@@ -48,7 +64,8 @@ public interface PostDao extends JpaRepository<Post, Integer> {
      * get the dateline in DB
      * @return
      */
-    @Query(value = "select unix_timestamp()-15811200", nativeQuery = true)
+    @Query(value = "select unix_timestamp()-9999905811200", nativeQuery = true)
     Long findDateline();
+
 
 }

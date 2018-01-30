@@ -1,7 +1,6 @@
 package com.cn.company.domain;
 
 
-
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
@@ -13,15 +12,14 @@ import javax.persistence.*;
  * @Date: 2018/1/14
  * @Time: 上午12:15
  */
-@Document(indexName = "thread",type = "thread",shards = 1,replicas = 0,refreshInterval = "-1")
+@Document(indexName = "thread", type = "thread", shards = 1, replicas = 0, refreshInterval = "-1")
 @Entity
-@Table(name="thread")
+@Table(name = "thread")
 public class Thread {
 
     @Id
     @org.springframework.data.annotation.Id
-    @SequenceGenerator(name = "PROJECT_ID_GENERATOR", sequenceName = "PROJECT_SEQ", initialValue = 100, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROJECT_ID_GENERATOR")
+    @GeneratedValue
     private int threadid;
 
     @Column
@@ -33,6 +31,11 @@ public class Thread {
     @Column
     private int forumid;
 
+    @Column
+    private long dateline;
+
+    @Column
+    private int visible;
 
     public int getThreadid() {
         return threadid;
@@ -65,7 +68,23 @@ public class Thread {
     public void setForumid(int forumid) {
         this.forumid = forumid;
     }
-    
+
+
+    public long getDateline() {
+        return dateline;
+    }
+
+    public void setDateline(long dateline) {
+        this.dateline = dateline;
+    }
+
+    public int getVisible() {
+        return visible;
+    }
+
+    public void setVisible(int visible) {
+        this.visible = visible;
+    }
 
     @Override
     public String toString() {
@@ -74,6 +93,9 @@ public class Thread {
                 ", postusername='" + postusername + '\'' +
                 ", title='" + title + '\'' +
                 ", forumid=" + forumid +
+                ", dateline=" + dateline +
+                ", visible=" + visible +
                 '}';
     }
+
 }

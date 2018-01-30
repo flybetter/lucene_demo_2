@@ -1,6 +1,8 @@
 package com.cn.company.dao.jpa;
 
 import com.cn.company.domain.Thread;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -15,6 +17,12 @@ import java.util.List;
  * @Time: 上午12:53
  */
 public interface ThreadDao extends JpaRepository<Thread, Integer> {
+
+
+    Page<Thread> findByDatelineGreaterThanAndVisibleIs(long dateline, int visible, Pageable pageable);
+
+
+    /*********************old logic business************************/
 
     /**
      * get up to 5000 data through greater than or equals threadid and greater than dateline

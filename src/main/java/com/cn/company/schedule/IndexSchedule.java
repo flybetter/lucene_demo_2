@@ -1,7 +1,9 @@
 package com.cn.company.schedule;
 
+import com.cn.company.service.ElasticSearchService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -18,9 +20,16 @@ import org.springframework.stereotype.Component;
 public class IndexSchedule {
     /** logger */
     private static final Logger logger = LoggerFactory.getLogger(IndexSchedule.class);
+
+    @Autowired
+    private ElasticSearchService elasticSearchService;
+
     @Scheduled(fixedDelay = 60*1000)
     public void indexSchedule(){
-        logger.info("看看是不是可以定时打印");
+
+        elasticSearchService.cleanPostDataAndThreadDataBySearchServer();
+        elasticSearchService.sendPostDataToElasticSearchServer();
+        elasticSearchService.sendThreadDataToElasticSearchSever();
     }
 
 }

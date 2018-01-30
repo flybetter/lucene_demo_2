@@ -61,4 +61,26 @@ public class PostDaoTest {
        posts.forEach(e ->logger.info(e.toString()));
 
     }
+
+
+    @Test
+    public void testDefaultJpaSql() throws Exception {
+
+        Long dateline=postDao.findDateline();
+        logger.info("dateline:"+dateline);
+        PageRequest pageRequest=new PageRequest(0,20);
+        Page<Post> pages=postDao.findByDatelineGreaterThanAndVisibleIs(dateline,1,pageRequest);
+//        pages.forEach(e->logger.info(e.toString()));
+        logger.info(Integer.valueOf(pages.getSize()).toString());
+        logger.info("totalPages:"+pages.getTotalPages()+" totalElements"+pages.getTotalElements()+"" +
+                " numbers"+pages.getNumber());
+        logger.info("next page");
+        logger.info(Boolean.valueOf(pages.hasNext()).toString());
+        logger.info(pages.nextPageable().toString());
+        Page<Post> page2=postDao.findByDatelineGreaterThanAndVisibleIs(dateline,1,pages.nextPageable());
+//        page2.forEach(e1->logger.info(e1.toString()));
+        logger.info(Integer.valueOf(page2.getSize()).toString());
+        logger.info("totalPages:"+page2.getTotalPages()+" totalElements"+page2.getTotalElements()+"" +
+                " numbers"+page2.getNumber());
+    }
 }
