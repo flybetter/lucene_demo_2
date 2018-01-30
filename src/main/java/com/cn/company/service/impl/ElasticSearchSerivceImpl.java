@@ -7,11 +7,18 @@ import com.cn.company.dao.jpa.ThreadDao;
 import com.cn.company.domain.Post;
 import com.cn.company.domain.Thread;
 import com.cn.company.service.ElasticSearchService;
+import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * ElasticSearchSerivce class
@@ -21,7 +28,7 @@ import org.springframework.stereotype.Service;
  *         Time: 下午1:58
  */
 @Service("ElasticSearchService")
-public class ElasticSearchSerivceImpl implements ElasticSearchService {
+public class ElasticSearchSerivceImpl<T> implements ElasticSearchService {
 
     @Autowired
     private PostDao postDao;
@@ -35,6 +42,10 @@ public class ElasticSearchSerivceImpl implements ElasticSearchService {
 
     @Autowired
     private ThreadElasticSearchDao threadElasticSearchDao;
+
+
+    @Autowired
+    private ElasticsearchTemplate elasticsearchTemplate;
 
     @Override
     public void sendPostDataToElasticSearchServer() {
@@ -63,5 +74,44 @@ public class ElasticSearchSerivceImpl implements ElasticSearchService {
     public void cleanPostDataAndThreadDataBySearchServer() {
         threadElasticSearchDao.deleteAll();
         postElasticSearchDao.deleteAll();
+    }
+
+
+    @Override
+    public Page<T> customizedPostElasticsearchReposty (Pageable pageable, String pagetext) {
+        BoolQueryBuilder boolQueryBuilder=boolQuery();
+
+        if(StringUtils.isNotEmpty(pagetext)){
+            boolQueryBuilder.must(matchPhraseQuery("pagetext",pagetext));
+        }
+        SearchQuery searchQuery=new NativeSearchQueryBuilder().
+                withQuery(boolQueryBuilder).build().setPageable(pageable);
+        Page<Post> pages=elasticsearchTemplate.queryForPage(searchQuery,Post.class);
+        return (Page<T>) pages;
+    }
+
+    @Override
+    public Page<java.lang.Thread> customizedThreadlasticsearchReposity(Pageable pageable, String title, String formid) {
+
+        BoolQueryBuilder boolQueryBuilder=boolQuery();
+
+        if(StringUtils.isNotEmpty(title)){
+            boolQueryBuilder.must(matchPhraseQuery("titile",title));
+        }
+
+        if(StringUtils.isNotEmpty(formid)){
+
+//            boolQueryBuilder.must(termsQuery("formid",formid.split(",")))
+        }
+
+
+        return null;
+    }
+
+
+    @Override
+    public Iterable<Post> test() {
+        Iterable<Post> pages= postElasticSearchDao.findAll();
+        return pages;
     }
 }

@@ -37,6 +37,7 @@ public class Thread {
     @Column
     private int visible;
 
+
     public int getThreadid() {
         return threadid;
     }
@@ -85,6 +86,7 @@ public class Thread {
     public void setVisible(int visible) {
         this.visible = visible;
     }
+
 
     @Override
     public String toString() {

@@ -24,9 +24,9 @@ public class IndexSchedule {
     @Autowired
     private ElasticSearchService elasticSearchService;
 
-    @Scheduled(fixedDelay = 60*1000)
+    @Scheduled(cron =" 0 30 23 ? * *")
     public void indexSchedule(){
-
+        logger.info("scheduling task");
         elasticSearchService.cleanPostDataAndThreadDataBySearchServer();
         elasticSearchService.sendPostDataToElasticSearchServer();
         elasticSearchService.sendThreadDataToElasticSearchSever();

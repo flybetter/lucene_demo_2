@@ -1,6 +1,7 @@
 package com.cn.company.service;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -28,6 +29,24 @@ public interface ElasticSearchService<T> {
      */
     void cleanPostDataAndThreadDataBySearchServer();
 
+    /**
+     *
+     * @param pageable
+     * @param pagetext
+     * @return
+     */
+    Page<T> customizedPostElasticsearchReposty(Pageable pageable, String pagetext);
 
-    Page<T> customizedElasticsearchReposity();
+    /**
+     *
+     * @param pageable
+     * @param title
+     * @param pagetext
+     * @param formid
+     * @return
+     */
+    Page<Thread> customizedThreadlasticsearchReposity(Pageable pageable, String title,String pagetext,String formid);
+
+
+    Iterable<T> test();
 }
