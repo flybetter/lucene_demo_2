@@ -41,11 +41,10 @@ public interface ElasticSearchService<T> {
      *
      * @param pageable
      * @param title
-     * @param pagetext
-     * @param formid
+     * @param forumid
      * @return
      */
-    Page<Thread> customizedThreadlasticsearchReposity(Pageable pageable, String title,String pagetext,String formid);
+    Page<Thread> customizedThreadElasticsearchReposity(Pageable pageable, String title, String forumid);
 
 
     Iterable<T> test();

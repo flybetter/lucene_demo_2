@@ -64,7 +64,7 @@ public interface PostDao extends JpaRepository<Post, Integer> {
      * get the dateline in DB
      * @return
      */
-    @Query(value = "select unix_timestamp()-9999905811200", nativeQuery = true)
+    @Query(value = "select unix_timestamp()-15811200", nativeQuery = true)
     Long findDateline();
 
 

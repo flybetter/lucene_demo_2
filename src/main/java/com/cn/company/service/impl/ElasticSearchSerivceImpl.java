@@ -8,7 +8,10 @@ import com.cn.company.domain.Post;
 import com.cn.company.domain.Thread;
 import com.cn.company.service.ElasticSearchService;
 import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.index.IndexNotFoundException;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +20,8 @@ import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -29,6 +34,9 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
  */
 @Service("ElasticSearchService")
 public class ElasticSearchSerivceImpl<T> implements ElasticSearchService {
+
+    /** logger */
+    private static final Logger logger = LoggerFactory.getLogger(ElasticSearchSerivceImpl.class);
 
     @Autowired
     private PostDao postDao;
@@ -72,8 +80,12 @@ public class ElasticSearchSerivceImpl<T> implements ElasticSearchService {
 
     @Override
     public void cleanPostDataAndThreadDataBySearchServer() {
-        threadElasticSearchDao.deleteAll();
-        postElasticSearchDao.deleteAll();
+        try {
+            threadElasticSearchDao.deleteAll();
+            postElasticSearchDao.deleteAll();
+        } catch (IndexNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -91,23 +103,23 @@ public class ElasticSearchSerivceImpl<T> implements ElasticSearchService {
     }
 
     @Override
-    public Page<java.lang.Thread> customizedThreadlasticsearchReposity(Pageable pageable, String title, String formid) {
+    public Page<T> customizedThreadElasticsearchReposity(Pageable pageable, String title, String forumid) {
 
         BoolQueryBuilder boolQueryBuilder=boolQuery();
 
         if(StringUtils.isNotEmpty(title)){
-            boolQueryBuilder.must(matchPhraseQuery("titile",title));
+            boolQueryBuilder.must(matchPhraseQuery("title",title));
         }
 
-        if(StringUtils.isNotEmpty(formid)){
-
-//            boolQueryBuilder.must(termsQuery("formid",formid.split(",")))
+        if(StringUtils.isNotEmpty(forumid)){
+            boolQueryBuilder.must(termsQuery("forumid", Arrays.asList(forumid.split(","))));
         }
 
-
-        return null;
+        SearchQuery searchQuery=new NativeSearchQueryBuilder().
+                withQuery(boolQueryBuilder).build().setPageable(pageable);
+        Page<Thread> pages=elasticsearchTemplate.queryForPage(searchQuery,Thread.class);
+        return (Page<T>) pages;
     }
-
 
     @Override
     public Iterable<Post> test() {

@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**
@@ -24,12 +23,12 @@ public class IndexSchedule {
     @Autowired
     private ElasticSearchService elasticSearchService;
 
-    @Scheduled(cron =" 0 30 23 ? * *")
-    public void indexSchedule(){
-        logger.info("scheduling task");
-        elasticSearchService.cleanPostDataAndThreadDataBySearchServer();
-        elasticSearchService.sendPostDataToElasticSearchServer();
-        elasticSearchService.sendThreadDataToElasticSearchSever();
-    }
+//    @Scheduled(cron =" 0 30 23 ? * *")
+//    public void indexSchedule(){
+//        logger.info("scheduling task");
+//        elasticSearchService.cleanPostDataAndThreadDataBySearchServer();
+//        elasticSearchService.sendPostDataToElasticSearchServer();
+//        elasticSearchService.sendThreadDataToElasticSearchSever();
+//    }
 
 }

@@ -3,6 +3,7 @@ package com.cn.company.service.impl;
 import com.cn.company.dao.elasticsearch.PostElasticSearchDao;
 import com.cn.company.dao.jpa.PostDao;
 import com.cn.company.domain.Post;
+import com.cn.company.domain.Thread;
 import com.cn.company.service.ElasticSearchService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,7 +44,7 @@ public class ElasticSearchSerivceImplTest {
 
     @Test
     public void sendThreadDataToElasticSearchSever() throws Exception {
-
+        elasticSearchService.sendThreadDataToElasticSearchSever();
     }
 
     @Test
@@ -54,7 +55,7 @@ public class ElasticSearchSerivceImplTest {
     @Test
     public void testElasticsearchCustomizedSearch() throws Exception {
         String pageText="收入";
-        Page<Post> pages=elasticSearchService.customizedPostElasticsearchReposty( new PageRequest(1,20),pageText);
+        Page<Post> pages=elasticSearchService.customizedPostElasticsearchReposty( new PageRequest(0,20),pageText);
         pages.forEach(e->logger.info(e.toString()));
         logger.info("total Pages:"+pages.getTotalElements()+" numbers "+pages.getNumber()+" size:"+pages.getSize()+" " +
                 "length:"+pages.getContent().size());
@@ -82,6 +83,17 @@ public class ElasticSearchSerivceImplTest {
 
 
         elasticSearchService.test().forEach(e->logger.info(e.toString()));
+
+    }
+
+    @Test
+    public void testThreadElasticsearch() throws Exception {
+        String title="收房";
+        String forumid="107,2222";
+        logger.info("test starting");
+        Page<Thread> pages=elasticSearchService.customizedThreadElasticsearchReposity(new PageRequest(0,20),title,forumid);
+        pages.forEach(e->logger.info(e.toString()));
+        logger.info("total elements:"+pages.getTotalElements()+" number:"+pages.getNumber()+" size:"+pages.getSize());
 
     }
 }
