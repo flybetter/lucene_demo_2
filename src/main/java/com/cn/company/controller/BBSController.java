@@ -40,7 +40,8 @@ public class BBSController {
     public String indexBuild(){
         Long startTime=System.currentTimeMillis();
         logger.info("start time:"+startTime);
-        elasticSearchService.cleanPostDataAndThreadDataBySearchServer();
+//        elasticSearchService.cleanPostDataAndThreadDataBySearchServer();
+        logger.info("clean  time:"+(System.currentTimeMillis()- startTime));
         elasticSearchService.sendPostDataToElasticSearchServer();
         elasticSearchService.sendThreadDataToElasticSearchSever();
         Long endTime=System.currentTimeMillis();

@@ -60,7 +60,7 @@ public class ElasticSearchSerivceImpl<T> implements ElasticSearchService {
         Long dateline = postDao.findDateline();
         Page<Post> pages = null;
         do {
-            Pageable nextPageable = pages == null ? new PageRequest(0, 5000) : pages.nextPageable();
+            Pageable nextPageable = pages == null ? new PageRequest(0, 10000) : pages.nextPageable();
             pages = postDao.findByDatelineGreaterThanAndVisibleIs(dateline, 1, nextPageable);
             postElasticSearchDao.save(pages);
         } while (pages.hasNext());
@@ -72,7 +72,7 @@ public class ElasticSearchSerivceImpl<T> implements ElasticSearchService {
         long dateline = postDao.findDateline();
         Page<Thread> pages = null;
         do {
-            Pageable nextPageable = pages == null ? new PageRequest(0, 5000) : pages.nextPageable();
+            Pageable nextPageable = pages == null ? new PageRequest(0, 10000) : pages.nextPageable();
             pages=threadDao.findByDatelineGreaterThanAndVisibleIs(dateline,1,nextPageable);
             threadElasticSearchDao.save(pages);
         } while (pages.hasNext());
