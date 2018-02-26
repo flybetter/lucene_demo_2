@@ -17,6 +17,7 @@ import java.util.List;
  * @Time: 上午12:53
  */
 public interface ThreadDao extends JpaRepository<Thread, Integer> {
+    
 
 
     Page<Thread> findByDatelineGreaterThanAndVisibleIs(long dateline, int visible, Pageable pageable);

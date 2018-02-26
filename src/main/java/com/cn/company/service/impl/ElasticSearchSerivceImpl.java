@@ -20,6 +20,8 @@ import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Arrays;
 
@@ -54,6 +56,11 @@ public class ElasticSearchSerivceImpl<T> implements ElasticSearchService {
 
     @Autowired
     private ElasticsearchTemplate elasticsearchTemplate;
+
+
+
+
+
 
     @Override
     public void sendPostDataToElasticSearchServer() {
@@ -125,5 +132,8 @@ public class ElasticSearchSerivceImpl<T> implements ElasticSearchService {
     public Iterable<Post> test() {
         Iterable<Post> pages= postElasticSearchDao.findAll();
         return pages;
+
     }
+
+
 }

@@ -48,4 +48,6 @@ public interface ElasticSearchService<T> {
 
 
     Iterable<T> test();
+
+
 }
